@@ -4,7 +4,6 @@
 # | `$a1`    | input/output | address | null-terminated result string (4 words) |
 # | `$t0-9`  | temporary    | any     | for temporary storage                   |
 
-#THIS PROBLEM WON'T GET ACCEPTED ON EXRCISM BECAUSE THE LAST TEST CASE REQUIRES YOU TO THROW AN ERROR
 
 .globl nucleotide_counts
 #A is 0($a1), C is 4($a1), G is 8($a1), T is 12($a1)
@@ -35,9 +34,11 @@ nucleotide_counts:
 			addi $t3, $t3, 1 #increment T counter
 			j reload #reload the t4 register with the next character to check again
 		invalid:
-			addi $a0, $zero, 1 #set error code to 1
-			addi $v0, $zero, 17 #17 to exit with an error
-			syscall #execute the system call
+			addi $t0, $zero, -1
+			addi $t1, $zero, -1
+			addi $t2, $zero, -1
+			addi $t3, $zero, -1
+			j exit
 			
 		reload:
 			addi $a0, $a0, 1 #increments the pointer
